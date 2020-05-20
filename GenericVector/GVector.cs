@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace GVector
+namespace GenericVector
 {
     [Serializable]
     public struct GVector : IFormattable, IEquatable<GVector>
