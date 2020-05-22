@@ -71,7 +71,8 @@ namespace GenericVector
         #region Constructors
         public GVector(float[] values)
         {
-            Axes = values;
+            Axes = new float[values.Length];
+            values.CopyTo(Axes, 0);
         }
 
         public GVector(GVector vector) : this(vector.Axes)
@@ -337,7 +338,7 @@ namespace GenericVector
 
         public GVector ForEachAxis(Func<int, float, float> operation)
         {
-            var result = this;
+            var result = new GVector(this);
             for (int i = 0; i < result.Dimensions; i++)
                 result[i] = operation(i, result[i]);
 
@@ -351,7 +352,7 @@ namespace GenericVector
 
         public static GVector ForEachAxis(GVector vectorA, GVector vectorB, Func<int, float, float, float> operation)
         {
-            var result = vectorA;
+            var result = new GVector(vectorA);
             var dimensions = Math.Min(vectorA.Dimensions, vectorB.Dimensions);
             for (int i = 0; i < dimensions; i++)
                 result[i] = operation(i, vectorA[i], vectorB[i]);
