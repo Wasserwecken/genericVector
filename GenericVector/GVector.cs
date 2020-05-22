@@ -321,7 +321,7 @@ namespace GenericVector
             if (other == null || Dimensions != other.Dimensions)
                 return false;
 
-            if ((this - other).MagnitudeSquared > float.Epsilon)
+            if ((this - other).MagnitudeSquared >= float.Epsilon * float.Epsilon)
                 return false;
             else
                 return true;
