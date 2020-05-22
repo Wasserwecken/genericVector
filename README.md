@@ -79,3 +79,18 @@ resultFloat = GVector.Dot(vector2, vector4);
 resultFloat = GVector.Distance(vector4, vector2);
 // result: 8,185352
 ```
+
+## Adding custom or missing functions
+For axis independet calculations can the "ForEachAxis" function be used. This is available on the type and value itself. The functions will iterate over each axis.
+
+```c#
+var vector3 = new GVector(new float[] { 1f, 2f, 3f });
+var vector2 = new GVector(new float[] { 4f, 5f });
+GVector result;
+
+result = vector3.ForEachAxis(axis => axis > 2f ? -1f : 1f);
+// result: (1, 1, -1)
+
+result = GVector.ForEachAxis(vector2, vector3, (axisA, axisB) => axisA > axisB ? -1f : 1f);
+// result: (-1, -1, 3)
+```
