@@ -283,10 +283,10 @@ namespace GenericVector
 
         public GVector MoveTowards(GVector target, float delta)
         {
-            var diff = target - this;
+            var diff = -this + target;
             float magnitude = diff.Magnitude;
             if (magnitude <= delta || delta == 0)
-                return target;
+                return new GVector(target);
             return this + diff / magnitude * delta;
         }
         #endregion
