@@ -197,6 +197,18 @@ namespace GenericVector
         public GVector Log(float newBase)
             => ForEachAxis(value => (float)Math.Log(value, newBase));
 
+        public GVector Min(float min)
+            => ForEachAxis(value => Math.Min(value, min));
+
+        public GVector Min(GVector min)
+            => ForEachAxis((i, value) => Math.Min(value, min[i]));
+
+        public GVector Max(float max)
+            => ForEachAxis(value => Math.Max(value, max));
+
+        public GVector Max(GVector max)
+            => ForEachAxis((i, value) => Math.Min(value, max[i]));
+
         public GVector Pow(GVector power)
             => ForEachAxis((i, value) => (float)Math.Pow(value, power[i]));
 
