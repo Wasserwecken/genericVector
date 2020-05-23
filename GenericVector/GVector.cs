@@ -263,7 +263,14 @@ namespace GenericVector
             => (vectorA - vectorB).MagnitudeSquared;
 
         public static GVector Lerp(GVector vectorA, GVector vectorB, GVector t)
-            => ForEachAxis(vectorA, vectorB, (i, valueA, valueB) => (1f - t[i]) * valueA + t[i] * valueB);
+        {
+            var result = new GVector(vectorA);
+            var dimensions = Math.Min(t.Dimensions, Math.Min(vectorA.Dimensions, vectorB.Dimensions));
+            for (int i = 0; i < dimensions; i++)
+                result[i] = (1f - t[i]) * vectorA[i] + t[i] * vectorB[i];
+
+            return result;
+        }
 
         public static GVector Lerp(GVector vectorA, GVector vectorB, float t)
             => ForEachAxis(vectorA, vectorB, (i, valueA, valueB) => (1f - t) * valueA + t * valueB);
