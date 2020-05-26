@@ -264,9 +264,9 @@ namespace GenericVector
 
         public static GVector Lerp(GVector vectorA, GVector vectorB, GVector t)
         {
-            var result = new GVector(vectorA);
-            var dimensions = Math.Min(t.Dimensions, Math.Min(vectorA.Dimensions, vectorB.Dimensions));
-            for (int i = 0; i < dimensions; i++)
+            var minDimensions = Math.Min(t.Dimensions, Math.Min(vectorA.Dimensions, vectorB.Dimensions));
+            var result = new GVector(minDimensions);
+            for (int i = 0; i < minDimensions; i++)
                 result[i] = (1f - t[i]) * vectorA[i] + t[i] * vectorB[i];
 
             return result;
@@ -280,9 +280,9 @@ namespace GenericVector
 
         public static float Dot(GVector vectorA, GVector vectorB)
         {
+            var minDimensions = Math.Min(vectorA.Dimensions, vectorB.Dimensions);
             var result = vectorA[0] * vectorB[0];
-            var dimensions = Math.Min(vectorA.Dimensions, vectorB.Dimensions);
-            for (int i = 1; i < dimensions; i++)
+            for (int i = 1; i < minDimensions; i++)
                 result += vectorA[i] * vectorB[i];
 
             return result;
