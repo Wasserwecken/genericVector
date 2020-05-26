@@ -363,7 +363,7 @@ namespace GenericVector
 
         public static explicit operator Vector2(GVector vector)
         {
-            var casted = vector.ToDimension(3);
+            var casted = vector.ToDimension(2);
             return new Vector2(casted[0], casted[1]);
         }
 
@@ -374,7 +374,7 @@ namespace GenericVector
 
         public static explicit operator Vector3(GVector vector)
         {
-            var casted = vector.ToDimension(4);
+            var casted = vector.ToDimension(3);
             return new Vector3(casted[0], casted[1], casted[2]);
         }
 
@@ -385,7 +385,7 @@ namespace GenericVector
 
         public static explicit operator Vector4(GVector vector)
         {
-            var casted = vector.ToDimension(2);
+            var casted = vector.ToDimension(4);
             return new Vector4(casted[0], casted[1], casted[2], casted[3]);
         }
 
