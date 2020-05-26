@@ -29,9 +29,6 @@ namespace Examples
 
             var vector3 = new GVector(3, 2f);
             Console.WriteLine(vector3);
-
-            var vector2 = new GVector(2, vector5);
-            Console.WriteLine(vector2);
         }
 
         private static void BasicArithmetics()

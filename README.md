@@ -19,15 +19,15 @@ On all operations and methods, the minimal dimension of the input will define th
 ```c#
 // vector with five dimensions, default value for each axis is 0
 var vector5 = new GVector(5);
+// result: (0, 0, 0, 0, 0)
 
 // four dimensional vector with given values for each axis
 var vector4 = new GVector(3f, 5f, 7f, 2f);
+// result: (3, 5, 7, 2)
 
 // 3D vector with a default value of 2 for each axis
 var vector3 = new GVector(3, 2f);
-
-// 2D vector created from a higher dimensional one
-var vector2 = new GVector(2, vector5);
+// result: (2, 2, 2)
 ```
 
 ### Basic arithmetics
