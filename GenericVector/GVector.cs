@@ -93,8 +93,8 @@ namespace GenericVector
 
         public GVector(int dimensions, GVector values) : this(dimensions)
         {
-            dimensions = Math.Min(Dimensions, values.Dimensions);
-            for (int i = 0; i < dimensions; i++)
+            var minDimensions = Math.Min(Dimensions, values.Dimensions);
+            for (int i = 0; i < minDimensions; i++)
                 Axes[i] = values[i];
         }
         #endregion
@@ -318,6 +318,45 @@ namespace GenericVector
         public string ToString(string format, IFormatProvider formatProvider)
         {
             return ToString(value => value.ToString(format, formatProvider));
+        }
+        #endregion
+
+
+        #region Casting
+        public GVector ToDimension(int newDimension)
+        {
+            return new GVector(newDimension, this);
+        }
+
+        public GVector ToDimension(int newDimension, float defaultValue)
+        {
+            var result = ToDimension(newDimension);
+
+            for (int i = Dimensions; i < result.Dimensions; i++)
+                result[i] = defaultValue;
+
+            return result;
+        }
+
+        public GVector AddDimensions(GVector vector)
+        {
+            if (Dimensions >= vector.Dimensions)
+                return new GVector(this);
+
+            var result = new GVector(vector.Dimensions, this);
+            for (int i = Dimensions; i < vector.Dimensions; i++)
+                result[i] = vector[i];
+
+            return result;
+        }
+
+        public GVector AddDimensions(params float[] values)
+        {
+            var result = new GVector(Dimensions + values.Length, this);
+            for (int i = Dimensions; i < result.Dimensions; i++)
+                result[i] = values[i];
+
+            return result;
         }
         #endregion
 
