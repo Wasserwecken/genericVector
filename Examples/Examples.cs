@@ -115,6 +115,15 @@ namespace Examples
             // downcast to a lower dimension
             resultVector = vector3.ToDimension(2).ToDimension(4);
             Console.WriteLine(resultVector);
+
+
+            // cast from System.Numerics.Vector2
+            GVector vectorFrom = (GVector)new Vector2();
+            Console.WriteLine(vectorFrom);
+
+            // cast to System.Numerics.Vector4
+            Vector4 vectorTo = (Vector4)new GVector(4);
+            Console.WriteLine(vectorTo);
         }
     }
 }
