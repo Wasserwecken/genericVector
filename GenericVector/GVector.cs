@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Numerics;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 
 namespace GenericVector
 {
@@ -357,6 +359,39 @@ namespace GenericVector
                 result[i] = values[i];
 
             return result;
+        }
+
+        public static explicit operator Vector2(GVector vector)
+        {
+            var casted = vector.ToDimension(3);
+            return new Vector2(casted[0], casted[1]);
+        }
+
+        public static explicit operator GVector(Vector2 vector)
+        {
+            return new GVector(vector.X, vector.Y);
+        }
+
+        public static explicit operator Vector3(GVector vector)
+        {
+            var casted = vector.ToDimension(4);
+            return new Vector3(casted[0], casted[1], casted[2]);
+        }
+
+        public static explicit operator GVector(Vector3 vector)
+        {
+            return new GVector(vector.X, vector.Y, vector.Z);
+        }
+
+        public static explicit operator Vector4(GVector vector)
+        {
+            var casted = vector.ToDimension(2);
+            return new Vector4(casted[0], casted[1], casted[2], casted[3]);
+        }
+
+        public static explicit operator GVector(Vector4 vector)
+        {
+            return new GVector(vector.X, vector.Y, vector.Z, vector.W);
         }
         #endregion
 
