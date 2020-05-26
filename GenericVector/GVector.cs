@@ -69,7 +69,7 @@ namespace GenericVector
 
 
         #region Constructors
-        public GVector(float[] values)
+        public GVector(params float[] values)
         {
             Axes = new float[values.Length];
             values.CopyTo(Axes, 0);
