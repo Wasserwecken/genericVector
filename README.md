@@ -93,7 +93,26 @@ Sometimes, the higher dimension of two vectors is needed for methods to get the 
 This can be done by casting the lower dimensional vector to the desired dimension. E.g. The distance between a 2D and 3D vector is diffrent in each perspective.
 
 ```c#
+var vector3 = new GVector(3f, 5f, 7f);
+var vector2 = new GVector(1f, 2f);
+GVector resultVector;
+float resultFloat;
 
+// excludes the third dimension, distance of a 2D perspective
+resultFloat = GVector.Distance(vector2, vector3);
+// result: 2,6457512
+
+// includes the third dimension, distance of a 3D perspective
+resultFloat = GVector.Distance(vector2.ToDimension(3), vector3);
+// result: 7,483315
+
+// AddDimensions recovers lost dimensions
+resultVector = GVector.Lerp(vector2, vector3, 0.5f).AddDimensions(vector3);
+// result: (2, 3,5, 7)
+
+// downcast to a lower dimension
+resultVector = vector3.ToDimension(2).ToDimension(4);
+// result: (3, 5, 0, 0)
 ```
 
 

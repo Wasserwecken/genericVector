@@ -1,5 +1,6 @@
 ﻿using GenericVector;
 using System;
+using System.Numerics;
 
 namespace Examples
 {
@@ -11,34 +12,31 @@ namespace Examples
             BasicArithmetics();
             FloatMath();
             VectorMath();
+            Casting();
 
             Console.ReadKey();
         }
 
         private static void Inits()
         {
-            Console.WriteLine("Initialisations");
+            Console.WriteLine("\nInitialisations");
 
-            // vector with five dimensions, default value for each axis is 0
             var vector5 = new GVector(5);
             Console.WriteLine(vector5);
 
-            // four dimensional vector with given values for each axis
             var vector4 = new GVector(3f, 5f, 7f, 2f);
             Console.WriteLine(vector4);
 
-            // 3D vector with a default value of 2 for each axis
             var vector3 = new GVector(3, 2f);
             Console.WriteLine(vector3);
 
-            // 2D vector created from a higher dimensional one
             var vector2 = new GVector(2, vector5);
             Console.WriteLine(vector2);
         }
 
         private static void BasicArithmetics()
         {
-            Console.WriteLine("Basic arithmetics");
+            Console.WriteLine("\nBasic arithmetics");
 
             var vector3 = new GVector(1f, 2f, 3f);
             var vector2 = new GVector(4f, 5f);
@@ -55,7 +53,7 @@ namespace Examples
 
         private static void FloatMath()
         {
-            Console.WriteLine("Float math");
+            Console.WriteLine("\nFloat math");
 
             var vector = new GVector(3f, -5f, 7f, -11f, 13f);
             GVector result;
@@ -72,7 +70,7 @@ namespace Examples
 
         private static void VectorMath()
         {
-            Console.WriteLine("Vector math");
+            Console.WriteLine("\nVector math");
 
             var vector2 = new GVector(new float[] { 1f, 2f });
             var vector4 = new GVector(new float[] { 3f, 4f, 5f, 6f });
@@ -94,7 +92,29 @@ namespace Examples
 
         private static void Casting()
         {
+            Console.WriteLine("\nCasting");
 
+            var vector3 = new GVector(3f, 5f, 7f);
+            var vector2 = new GVector(1f, 2f);
+            GVector resultVector;
+            float resultFloat;
+
+            // excludes the third dimension, distance of a 2D perspective
+            resultFloat = GVector.Distance(vector2, vector3);
+            Console.WriteLine(resultFloat);
+
+            // includes the third dimension, distance of a 3D perspective
+            resultFloat = GVector.Distance(vector2.ToDimension(3), vector3);
+            Console.WriteLine(resultFloat);
+
+
+            // AddDimensions recovers lost dimensions
+            resultVector = GVector.Lerp(vector2, vector3, 0.5f).AddDimensions(vector3);
+            Console.WriteLine(resultVector);
+
+            // downcast to a lower dimension
+            resultVector = vector3.ToDimension(2).ToDimension(4);
+            Console.WriteLine(resultVector);
         }
     }
 }
