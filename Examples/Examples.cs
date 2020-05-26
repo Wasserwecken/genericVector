@@ -46,6 +46,9 @@ namespace Examples
 
             var resultB = vector3 - vector2;
             Console.WriteLine(resultB);
+
+            var resultC = vector2 % vector3;
+            Console.WriteLine(resultC);
         }
     }
 }

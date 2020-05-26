@@ -39,7 +39,10 @@ var resultA = vector2 + vector3;
 // result: (5, 7)
 
 var resultB = vector3 - vector2;
-// result: (-3, -3, 3)
+// result: (-3, -3)
+
+var resultC = vector2 % vector3;
+// result: (0, 1)
 ```
 
 ### Function usage
