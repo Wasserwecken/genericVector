@@ -112,7 +112,7 @@ resultVector = GVector.Lerp(vector2, vector3, 0.5f).AddDimensions(vector3);
 // result: (2, 3,5, 7)
 
 // downcast to a lower dimension
-resultVector = vector3.ToDimension(2).ToDimension(4);
+resultVector = vector3.ToDimension(2);
 // result: (3, 5, 0, 0)
 
 

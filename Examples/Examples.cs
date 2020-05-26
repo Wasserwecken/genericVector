@@ -110,7 +110,7 @@ namespace Examples
             Console.WriteLine(resultVector);
 
             // downcast to a lower dimension
-            resultVector = vector3.ToDimension(2).ToDimension(4);
+            resultVector = vector3.ToDimension(2);
             Console.WriteLine(resultVector);
 
 
