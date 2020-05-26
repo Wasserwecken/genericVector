@@ -2,6 +2,7 @@
 using System.Numerics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Security;
 
 namespace GenericVector
 {
@@ -71,18 +72,20 @@ namespace GenericVector
 
 
         #region Constructors
-        public GVector(params float[] values)
+        public GVector(int dimensions)
         {
-            Axes = new float[values.Length];
+            if (dimensions <= 0)
+                throw new ArgumentException("A vector needs at least one dimenson");
+
+            Axes = new float[dimensions];
+        }
+
+        public GVector(params float[] values) : this(values.Length)
+        {
             values.CopyTo(Axes, 0);
         }
 
         public GVector(GVector vector) : this(vector.Axes)
-        {
-
-        }
-
-        public GVector(int dimensions) : this(new float[dimensions])
         {
 
         }
