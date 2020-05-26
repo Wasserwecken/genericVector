@@ -350,12 +350,12 @@ namespace GenericVector
 
 
         #region Helper
-        private static GVector ForEachAxis(GVector vector, Func<float, float> operation)
+        public static GVector ForEachAxis(GVector vector, Func<float, float> operation)
         {
             return ForEachAxis(vector, (i, axis) => operation(axis));
         }
 
-        private static GVector ForEachAxis(GVector vector, Func<int, float, float> operation)
+        public static GVector ForEachAxis(GVector vector, Func<int, float, float> operation)
         {
             var result = new GVector(vector);
             for (int i = 0; i < result.Dimensions; i++)
@@ -364,12 +364,12 @@ namespace GenericVector
             return result;
         }
 
-        private static GVector ForEachAxis(GVector vectorA, GVector vectorB, Func<float, float, float> operation)
+        public static GVector ForEachAxis(GVector vectorA, GVector vectorB, Func<float, float, float> operation)
         {
             return ForEachAxis(vectorA, vectorB, (i, axisA, axisB) => operation(axisA, axisB));
         }
 
-        private static GVector ForEachAxis(GVector vectorA, GVector vectorB, Func<int, float, float, float> operation)
+        public static GVector ForEachAxis(GVector vectorA, GVector vectorB, Func<int, float, float, float> operation)
         {
             var minDimensions = Math.Min(vectorA.Dimensions, vectorB.Dimensions);
             var result = new GVector(minDimensions);
