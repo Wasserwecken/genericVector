@@ -65,7 +65,8 @@ result = GVector.Max(vector, 6f);
 
 ```
 
-Operations and functions which are requiring multiple vectors for their result can be accesed over the type itself as static methods
+
+### Vector math
  
 ```c#
 var vector2 = new GVector(new float[] { 1f, 2f});
@@ -73,15 +74,28 @@ var vector4 = new GVector(new float[] { 3f, 4f, 5f, 6f });
 GVector resultVector;
 float resultFloat;
 
+resultVector = GVector.ClampToMagnitude(vector2, 0.5f);
+// result: (0,2236068, 0,4472136)
+
 resultVector = GVector.Lerp(vector4, vector2, 0.5f);
-// result: (2, 3, 5, 6)
+// result: (2, 3)
 
 resultFloat = GVector.Dot(vector2, vector4);
 // result: 11
 
 resultFloat = GVector.Distance(vector4, vector2);
-// result: 8,185352
+// result: 2,4494898
 ```
+
+
+### Casting
+Sometimes, the higher dimension of two vectors is needed for methods to get the desired result.
+This can be done by casting the lower dimensional vector to the desired dimension. E.g. The distance between a 2D and 3D vector is diffrent in each perspective.
+
+```c#
+
+```
+
 
 ## Adding custom or missing functions
 For axis independet calculations can the "ForEachAxis" function be used. This is available on the type and value itself. The functions will iterate over each axis.

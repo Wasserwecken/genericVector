@@ -10,6 +10,7 @@ namespace Examples
             Inits();
             BasicArithmetics();
             FloatMath();
+            VectorMath();
 
             Console.ReadKey();
         }
@@ -67,6 +68,33 @@ namespace Examples
 
             result = GVector.Min(vector, 0f);
             Console.WriteLine(result);
+        }
+
+        private static void VectorMath()
+        {
+            Console.WriteLine("Vector math");
+
+            var vector2 = new GVector(new float[] { 1f, 2f });
+            var vector4 = new GVector(new float[] { 3f, 4f, 5f, 6f });
+            GVector resultVector;
+            float resultFloat;
+
+            resultVector = GVector.ClampToMagnitude(vector2, 0.5f);
+            Console.WriteLine(resultVector);
+
+            resultVector = GVector.Lerp(vector4, vector2, 0.5f);
+            Console.WriteLine(resultVector);
+
+            resultFloat = GVector.Dot(vector2, vector4);
+            Console.WriteLine(resultFloat);
+
+            resultFloat = GVector.Distance(vector4, vector2);
+            Console.WriteLine(resultFloat);
+        }
+
+        private static void Casting()
+        {
+
         }
     }
 }

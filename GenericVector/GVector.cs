@@ -253,7 +253,7 @@ namespace GenericVector
 
 
         #region Vector math
-        public static GVector ClampMagnitude(GVector vector, float max)
+        public static GVector ClampToMagnitude(GVector vector, float max)
             => vector.MagnitudeSquared > max * max ? vector.Normalized * max : new GVector(vector);
 
         public static float Distance(GVector vectorA, GVector vectorB)
