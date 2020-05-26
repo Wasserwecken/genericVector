@@ -9,6 +9,7 @@ namespace Examples
         {
             Inits();
             BasicArithmetics();
+            FloatMath();
 
             Console.ReadKey();
         }
@@ -49,6 +50,23 @@ namespace Examples
 
             var resultC = vector2 % vector3;
             Console.WriteLine(resultC);
+        }
+
+        private static void FloatMath()
+        {
+            Console.WriteLine("Float math");
+
+            var vector = new GVector(3f, -5f, 7f, -11f, 13f);
+            GVector result;
+
+            result = GVector.Sin(vector);
+            Console.WriteLine(result);
+
+            result = GVector.Sign(vector);
+            Console.WriteLine(result);
+
+            result = GVector.Min(vector, 0f);
+            Console.WriteLine(result);
         }
     }
 }

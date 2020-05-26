@@ -12,6 +12,8 @@ Private case study about multidimensional vector arithmetic and how they interac
 - Vector2 / Vector3 like performance
 
 ## Usage
+On all operations and methods, the minimal dimension of the input will define the dimension of the result.
+
 ### Initialisation
 
 ```c#
@@ -29,8 +31,7 @@ var vector2 = new GVector(2, vector5);
 ```
 
 ### Basic arithmetics
-For every calculation, the first vector of an operation will define the dimension of the result.
-If the second vector has less dimensions, no caluclations will be performed on the missing axes.
+
 ```c#
 var vector3 = new GVector(new float[] { 1f, 2f, 3f });
 var vector2 = new GVector(new float[] { 4f, 5f});
@@ -45,24 +46,23 @@ var resultC = vector2 % vector3;
 // result: (0, 1)
 ```
 
-### Function usage
-Operations which are axis independent like all wrapped Math-Functions for floats are accessed over the vector value. Also operations which are depending on the vector itself.
+
+### Float math usage
+Many functions of `System.Math` are wraped. By using them, all axes are treaded seperatly. The result will be the axis value of a new vector.
 
 ```c#
-var vector5 = new GVector(new float[] { 1f, 2f, 3f, 4f ,5f });
+var vector = new GVector(3f, -5f, 7f, -11f, 13f);
 GVector result;
 
-result = vector5.Min(3f);
-// result: (1, 2, 3, 3, 3)
+result = GVector.Sin(vector);
+// result: (0,14112, 0,9589243, 0,6569866, 0,9999902, 0,42016703)
 
-result = vector5.Sin();
-// result: (0,84147096, 0,9092974, 0,14112, -0,7568025, -0,9589243)
+result = GVector.Sign(vector);
+// result: (1, -1, 1, -1, 1)
 
-result = vector5.Normalized;
-// result: (0,13483998, 0,26967996, 0,40451992, 0,5393599, 0,6741999)
+result = GVector.Max(vector, 6f);
+// result: (0, -5, 0, -11, 0)
 
-result = vector5.ClampMagnitude(2f);
-// result: (0,26967996, 0,5393599, 0,80903983, 1,0787199, 1,3483998)
 ```
 
 Operations and functions which are requiring multiple vectors for their result can be accesed over the type itself as static methods
