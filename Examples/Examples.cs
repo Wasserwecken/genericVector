@@ -8,10 +8,10 @@ namespace Examples
         static void Main()
         {
             Inits();
+            BasicArithmetics();
 
             Console.ReadKey();
         }
-
 
         private static void Inits()
         {
@@ -32,6 +32,20 @@ namespace Examples
             // 2D vector created from a higher dimensional one
             var vector2 = new GVector(2, vector5);
             Console.WriteLine(vector2);
+        }
+
+        private static void BasicArithmetics()
+        {
+            Console.WriteLine("Basic arithmetics");
+
+            var vector3 = new GVector(1f, 2f, 3f);
+            var vector2 = new GVector(4f, 5f);
+
+            var resultA = vector2 + vector3;
+            Console.WriteLine(resultA);
+
+            var resultB = vector3 - vector2;
+            Console.WriteLine(resultB);
         }
     }
 }

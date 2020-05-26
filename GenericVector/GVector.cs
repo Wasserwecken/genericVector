@@ -364,12 +364,12 @@ namespace GenericVector
             return result;
         }
 
-        public static GVector ForEachAxis(GVector vectorA, GVector vectorB, Func<float, float, float> operation)
+        private static GVector ForEachAxis(GVector vectorA, GVector vectorB, Func<float, float, float> operation)
         {
             return ForEachAxis(vectorA, vectorB, (i, axisA, axisB) => operation(axisA, axisB));
         }
 
-        public static GVector ForEachAxis(GVector vectorA, GVector vectorB, Func<int, float, float, float> operation)
+        private static GVector ForEachAxis(GVector vectorA, GVector vectorB, Func<int, float, float, float> operation)
         {
             var result = new GVector(vectorA);
             var dimensions = Math.Min(vectorA.Dimensions, vectorB.Dimensions);
