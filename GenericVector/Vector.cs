@@ -42,30 +42,53 @@ namespace GenericVector
 
 
         #region Indexer
-        public float this[int selected]
+        private void CheckAxisIndex(int selected)
         {
-            get { return Axes[selected]; }
-            set { Axes[selected] = value; }
+            if (selected < 0)
+                throw new IndexOutOfRangeException("Selected axis cannot be negativ");
+
+            if (selected >= Dimensions)
+                throw new IndexOutOfRangeException("Selected axis has a higher dimension than the vector");
         }
-        public Vector this[params int[] selected]
+
+        private void CheckAxisIndizes(int[] indizes)
+        {
+            if (indizes.Length > Dimensions)
+                throw new IndexOutOfRangeException("More dimensions selected than the vector has");
+        }
+
+        public float this[int index]
         {
             get
             {
-                if (selected.Length > Dimensions)
-                    throw new IndexOutOfRangeException("More dimensions selected than the vector has");
+                CheckAxisIndex(index);
+                return Axes[index];
+            }
+            set
+            {
+                CheckAxisIndex(index);
+                Axes[index] = value;
+            }
+        }
 
-                var result = new Vector(selected.Length);
-                for (int i = 0; i < selected.Length; i++)
-                    result[i] = Axes[selected[i]];
+        public Vector this[params int[] indizes]
+        {
+            get
+            {
+                CheckAxisIndizes(indizes);
+
+                var result = new Vector(indizes.Length);
+                for (int i = 0; i < indizes.Length; i++)
+                    result[i] = Axes[indizes[i]];
                 return result;
             }
             set
             {
-                if (selected.Length > Dimensions)
-                    throw new IndexOutOfRangeException("More dimensions selected than the vector has");
+                CheckAxisIndizes(indizes);
 
-                for (int i = 0; i < selected.Length; i++)
-                    Axes[selected[i]] = value[i];
+                var minDimension = Math.Min(indizes.Length, value.Dimensions);
+                for (int i = 0; i < minDimension; i++)
+                    Axes[indizes[i]] = value[i];
             }
         }
         #endregion
