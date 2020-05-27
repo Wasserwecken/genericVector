@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Numerics;
 using System.Globalization;
+using System.Diagnostics;
 
 namespace GenericVector
 {
     [Serializable]
+    [DebuggerDisplay("{ToString()}")]
     public struct Vector : IFormattable, IEquatable<Vector>
     {
         #region Properties
@@ -449,7 +451,7 @@ namespace GenericVector
             if (other == null || Dimensions != other.Dimensions)
                 return false;
 
-            if ((this - other).MagnitudeSquared >= float.Epsilon * float.Epsilon)
+            if ((this - other).MagnitudeSquared >= float.Epsilon + float.Epsilon)
                 return false;
             else
                 return true;

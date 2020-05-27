@@ -178,5 +178,14 @@ namespace Tests
             Assert.AreEqual(2f, resultB[0]);
             Assert.AreEqual(2f, resultB[1]);
         }
+
+
+        [Test]
+        public void Equals()
+        {
+            Assert.AreEqual(new Vector(1f, 2f), new Vector(1f, 2f));
+            Assert.AreNotEqual(new Vector(2f, 1f), new Vector(1f, 2f));
+            Assert.AreNotEqual(new Vector(2f, 1f), new Vector(1f, 2f, 0f));
+        }
     }
 }
