@@ -6,16 +6,15 @@ using System.Security;
 
 namespace GenericVector
 {
-    // TODO rename to Vector
     [Serializable]
-    public struct GVector : IFormattable, IEquatable<GVector>
+    public struct Vector : IFormattable, IEquatable<Vector>
     {
         #region Properties
         public int Dimensions => Axes.Length;
         public float[] Axes { get; }
-        public GVector One => new GVector(Dimensions, 1f);
-        public GVector Zero => new GVector(Dimensions, 0f);
-        public GVector Normalized => this / Magnitude;
+        public Vector One => new Vector(Dimensions, 1f);
+        public Vector Zero => new Vector(Dimensions, 0f);
+        public Vector Normalized => this / Magnitude;
         public float Magnitude => (float)Math.Sqrt(MagnitudeSquared);
         public float MagnitudeSquared
         {
@@ -48,14 +47,14 @@ namespace GenericVector
             get { return Axes[selected]; }
             set { Axes[selected] = value; }
         }
-        public GVector this[params int[] selected]
+        public Vector this[params int[] selected]
         {
             get
             {
                 if (selected.Length > Dimensions)
                     throw new IndexOutOfRangeException("More dimensions selected than the vector has");
 
-                var result = new GVector(selected.Length);
+                var result = new Vector(selected.Length);
                 for (int i = 0; i < selected.Length; i++)
                     result[i] = Axes[selected[i]];
                 return result;
@@ -73,7 +72,7 @@ namespace GenericVector
 
 
         #region Constructors
-        public GVector(int dimensions)
+        public Vector(int dimensions)
         {
             if (dimensions <= 0)
                 throw new ArgumentException("A vector needs at least one dimenson");
@@ -81,23 +80,23 @@ namespace GenericVector
             Axes = new float[dimensions];
         }
 
-        public GVector(params float[] values) : this(values.Length)
+        public Vector(params float[] values) : this(values.Length)
         {
             values.CopyTo(Axes, 0);
         }
 
-        public GVector(GVector vector) : this(vector.Axes)
+        public Vector(Vector vector) : this(vector.Axes)
         {
 
         }
 
-        public GVector(int dimensions, float value) : this(dimensions)
+        public Vector(int dimensions, float value) : this(dimensions)
         {
             for (int i = 0; i < Dimensions; i++)
                 Axes[i] = value;
         }
 
-        public GVector(int dimensions, GVector values) : this(dimensions)
+        public Vector(int dimensions, Vector values) : this(dimensions)
         {
             var minDimensions = Math.Min(Dimensions, values.Dimensions);
             for (int i = 0; i < minDimensions; i++)
@@ -107,184 +106,184 @@ namespace GenericVector
 
 
         #region Arithmetic
-        public static GVector operator +(GVector vectorA, GVector vectorB)
+        public static Vector operator +(Vector vectorA, Vector vectorB)
             => ForEachAxis(vectorA, vectorB, (axisA, axisB) => axisA + axisB);
 
-        public static GVector operator +(GVector vector, float value)
+        public static Vector operator +(Vector vector, float value)
             => ForEachAxis(vector, axis => axis + value);
 
-        public static GVector operator +(float value, GVector vector)
+        public static Vector operator +(float value, Vector vector)
             => ForEachAxis(vector, axis => value + axis);
 
 
-        public static GVector operator -(GVector vectorA, GVector vectorB)
+        public static Vector operator -(Vector vectorA, Vector vectorB)
             => ForEachAxis(vectorA, vectorB, (axisA, axisB) => axisA - axisB);
 
-        public static GVector operator -(GVector vector, float value)
+        public static Vector operator -(Vector vector, float value)
             => ForEachAxis(vector, axis => axis - value);
 
-        public static GVector operator -(float value, GVector vector)
+        public static Vector operator -(float value, Vector vector)
             => ForEachAxis(vector, axis => value - axis);
 
 
-        public static GVector operator *(GVector vectorA, GVector vectorB)
+        public static Vector operator *(Vector vectorA, Vector vectorB)
             => ForEachAxis(vectorA, vectorB, (axisA, axisB) => axisA * axisB);
 
-        public static GVector operator *(GVector vector, float value)
+        public static Vector operator *(Vector vector, float value)
             => ForEachAxis(vector, axis => axis * value);
 
-        public static GVector operator *(float value, GVector vector)
+        public static Vector operator *(float value, Vector vector)
             => ForEachAxis(vector, axis => value * axis);
 
 
-        public static GVector operator /(GVector vectorA, GVector vectorB)
+        public static Vector operator /(Vector vectorA, Vector vectorB)
             => ForEachAxis(vectorA, vectorB, (axisA, axisB) => axisA / axisB);
 
-        public static GVector operator /(GVector vector, float value)
+        public static Vector operator /(Vector vector, float value)
             => ForEachAxis(vector, axis => axis / value);
 
-        public static GVector operator /(float value, GVector vector)
+        public static Vector operator /(float value, Vector vector)
             => ForEachAxis(vector, axis => value / axis);
 
 
-        public static GVector operator %(GVector vectorA, GVector vectorB)
+        public static Vector operator %(Vector vectorA, Vector vectorB)
             => ForEachAxis(vectorA, vectorB, (axisA, axisB) => axisA % axisB);
 
-        public static GVector operator %(GVector vector, float value)
+        public static Vector operator %(Vector vector, float value)
             => ForEachAxis(vector, axis => axis % value);
 
-        public static GVector operator %(float value, GVector vector)
+        public static Vector operator %(float value, Vector vector)
             => ForEachAxis(vector, axis => value % axis);
 
 
-        public static GVector operator -(GVector vector)
+        public static Vector operator -(Vector vector)
             => -1f * vector;
 
-        public static GVector operator ++(GVector vector)
+        public static Vector operator ++(Vector vector)
             => ForEachAxis(vector, axis => axis++);
 
-        public static GVector operator --(GVector vector)
+        public static Vector operator --(Vector vector)
             => ForEachAxis(vector, axis => axis--);
 
 
-        public static bool operator ==(GVector left, GVector right)
+        public static bool operator ==(Vector left, Vector right)
             => left.Equals(right);
 
-        public static bool operator !=(GVector left, GVector right)
+        public static bool operator !=(Vector left, Vector right)
             => !(left == right);
         #endregion
 
 
         #region Float math
-        public static GVector Abs(GVector vector)
+        public static Vector Abs(Vector vector)
             => ForEachAxis(vector, value => Math.Abs(value));
 
-        public static GVector Ceil(GVector vector)
+        public static Vector Ceil(Vector vector)
             => ForEachAxis(vector, value => (float)Math.Ceiling(value));
 
-        public static GVector Clamp(GVector vector, GVector min, GVector max)
+        public static Vector Clamp(Vector vector, Vector min, Vector max)
             => ForEachAxis(vector, (i, value) => Math.Max(min[i], Math.Min(max[i], value)));
 
-        public static GVector Clamp(GVector vector, float min, float max)
+        public static Vector Clamp(Vector vector, float min, float max)
             => ForEachAxis(vector, value => Math.Max(min, Math.Min(max, value)));
 
-        public static GVector Exp(GVector vector, float ePower)
+        public static Vector Exp(Vector vector, float ePower)
             => ForEachAxis(vector, value => (float)Math.Exp(ePower));
 
-        public static GVector Floor(GVector vector)
+        public static Vector Floor(Vector vector)
             => ForEachAxis(vector, value => (float)Math.Floor(value));
 
-        public static GVector Log(GVector vector)
+        public static Vector Log(Vector vector)
             => ForEachAxis(vector, value => (float)Math.Log(value));
 
-        public static GVector Log(GVector vector, GVector newBase)
+        public static Vector Log(Vector vector, Vector newBase)
             => ForEachAxis(vector, (i, value) => (float)Math.Log(value, newBase[i]));
 
-        public static GVector Log(GVector vector, float newBase)
+        public static Vector Log(Vector vector, float newBase)
             => ForEachAxis(vector, value => (float)Math.Log(value, newBase));
 
-        public static GVector Min(GVector vector, float min)
+        public static Vector Min(Vector vector, float min)
             => ForEachAxis(vector, value => Math.Min(value, min));
 
-        public static GVector Min(GVector vector, GVector min)
+        public static Vector Min(Vector vector, Vector min)
             => ForEachAxis(vector, (i, value) => Math.Min(value, min[i]));
 
-        public static GVector Max(GVector vector, float max)
+        public static Vector Max(Vector vector, float max)
             => ForEachAxis(vector, value => Math.Max(value, max));
 
-        public static GVector Max(GVector vector, GVector max)
+        public static Vector Max(Vector vector, Vector max)
             => ForEachAxis(vector, (i, value) => Math.Min(value, max[i]));
 
-        public static GVector Pow(GVector vector, GVector power)
+        public static Vector Pow(Vector vector, Vector power)
             => ForEachAxis(vector, (i, value) => (float)Math.Pow(value, power[i]));
 
-        public static GVector Pow(GVector vector, float power)
+        public static Vector Pow(Vector vector, float power)
             => ForEachAxis(vector, value => (float)Math.Pow(value, power));
 
-        public static GVector Sign(GVector vector)
+        public static Vector Sign(Vector vector)
             => ForEachAxis(vector, value => Math.Sign(value));
 
-        public static GVector Sqrt(GVector vector)
+        public static Vector Sqrt(Vector vector)
             => ForEachAxis(vector, value => (float)Math.Sqrt(value));
 
-        public static GVector Truncate(GVector vector)
+        public static Vector Truncate(Vector vector)
             => ForEachAxis(vector, value => (float)Math.Truncate(value));
 
         #region Trigonometry
-        public static GVector Sin(GVector vector)
+        public static Vector Sin(Vector vector)
             => ForEachAxis(vector, value => (float)Math.Sin(value));
 
-        public static GVector Cos(GVector vector)
+        public static Vector Cos(Vector vector)
             => ForEachAxis(vector, value => (float)Math.Cos(value));
 
-        public static GVector Tan(GVector vector)
+        public static Vector Tan(Vector vector)
             => ForEachAxis(vector, value => (float)Math.Tan(value));
 
-        public static GVector Asin(GVector vector)
+        public static Vector Asin(Vector vector)
             => ForEachAxis(vector, value => (float)Math.Asin(value));
 
-        public static GVector Acos(GVector vector)
+        public static Vector Acos(Vector vector)
             => ForEachAxis(vector, value => (float)Math.Acos(value));
 
-        public static GVector Atan(GVector vector)
+        public static Vector Atan(Vector vector)
             => ForEachAxis(vector, value => (float)Math.Atan(value));
 
-        public static GVector Atan2(GVector vector, GVector other)
+        public static Vector Atan2(Vector vector, Vector other)
             => ForEachAxis(vector, (i, value) => (float)Math.Atan2(value, other[i]));
 
-        public static GVector Atan2(GVector vector, float other)
+        public static Vector Atan2(Vector vector, float other)
             => ForEachAxis(vector, value => (float)Math.Atan2(value, other));
         #endregion
         #endregion
 
 
         #region Vector math
-        public static GVector ClampToMagnitude(GVector vector, float max)
-            => vector.MagnitudeSquared > max * max ? vector.Normalized * max : new GVector(vector);
+        public static Vector ClampToMagnitude(Vector vector, float max)
+            => vector.MagnitudeSquared > max * max ? vector.Normalized * max : new Vector(vector);
 
-        public static float Distance(GVector vectorA, GVector vectorB)
+        public static float Distance(Vector vectorA, Vector vectorB)
             => (vectorA - vectorB).Magnitude;
 
-        public static float DistanceSquared(GVector vectorA, GVector vectorB)
+        public static float DistanceSquared(Vector vectorA, Vector vectorB)
             => (vectorA - vectorB).MagnitudeSquared;
 
-        public static GVector Lerp(GVector vectorA, GVector vectorB, GVector t)
+        public static Vector Lerp(Vector vectorA, Vector vectorB, Vector t)
         {
             var minDimensions = Math.Min(t.Dimensions, Math.Min(vectorA.Dimensions, vectorB.Dimensions));
-            var result = new GVector(minDimensions);
+            var result = new Vector(minDimensions);
             for (int i = 0; i < minDimensions; i++)
                 result[i] = (1f - t[i]) * vectorA[i] + t[i] * vectorB[i];
 
             return result;
         }
 
-        public static GVector Lerp(GVector vectorA, GVector vectorB, float t)
+        public static Vector Lerp(Vector vectorA, Vector vectorB, float t)
             => ForEachAxis(vectorA, vectorB, (i, valueA, valueB) => (1f - t) * valueA + t * valueB);
 
-        public static GVector Reflect(GVector vector, GVector normal)
+        public static Vector Reflect(Vector vector, Vector normal)
             => vector - normal * 2f * Dot(normal, vector);
 
-        public static float Dot(GVector vectorA, GVector vectorB)
+        public static float Dot(Vector vectorA, Vector vectorB)
         {
             var minDimensions = Math.Min(vectorA.Dimensions, vectorB.Dimensions);
             var result = vectorA[0] * vectorB[0];
@@ -294,12 +293,12 @@ namespace GenericVector
             return result;
         }
 
-        public GVector MoveTowards(GVector target, float delta)
+        public Vector MoveTowards(Vector target, float delta)
         {
             var diff = -this + target;
             float magnitude = diff.Magnitude;
             if (magnitude <= delta || delta == 0)
-                return new GVector(target);
+                return new Vector(target);
             return this + diff / magnitude * delta;
         }
         #endregion
@@ -329,12 +328,12 @@ namespace GenericVector
 
 
         #region Casting
-        public GVector ToDimension(int newDimension)
+        public Vector ToDimension(int newDimension)
         {
-            return new GVector(newDimension, this);
+            return new Vector(newDimension, this);
         }
 
-        public GVector ToDimension(int newDimension, float defaultValue)
+        public Vector ToDimension(int newDimension, float defaultValue)
         {
             var result = ToDimension(newDimension);
 
@@ -344,68 +343,68 @@ namespace GenericVector
             return result;
         }
 
-        public GVector Merge(GVector vector)
+        public Vector Merge(Vector vector)
         {
             return Merge(vector.Axes);
         }
 
-        public GVector Merge(params float[] axes)
+        public Vector Merge(params float[] axes)
         {
             if (axes.Length <= Dimensions)
-                return new GVector(this);
+                return new Vector(this);
 
-            var result = new GVector(axes.Length, this);
+            var result = new Vector(axes.Length, this);
             for (int i = Dimensions; i < axes.Length; i++)
                 result[i] = axes[i];
 
             return result;
         }
 
-        public GVector AddDimensions(GVector vector)
+        public Vector AddDimensions(Vector vector)
         {
             return AddDimensions(vector.Axes);
         }
 
-        public GVector AddDimensions(params float[] values)
+        public Vector AddDimensions(params float[] values)
         {
-            var result = new GVector(Dimensions + values.Length, this);
+            var result = new Vector(Dimensions + values.Length, this);
             for (int i = Dimensions; i < result.Dimensions; i++)
                 result[i] = values[i - Dimensions];
 
             return result;
         }
 
-        public static explicit operator Vector2(GVector vector)
+        public static explicit operator Vector2(Vector vector)
         {
             var casted = vector.ToDimension(2);
             return new Vector2(casted[0], casted[1]);
         }
 
-        public static explicit operator GVector(Vector2 vector)
+        public static explicit operator Vector(Vector2 vector)
         {
-            return new GVector(vector.X, vector.Y);
+            return new Vector(vector.X, vector.Y);
         }
 
-        public static explicit operator Vector3(GVector vector)
+        public static explicit operator Vector3(Vector vector)
         {
             var casted = vector.ToDimension(3);
             return new Vector3(casted[0], casted[1], casted[2]);
         }
 
-        public static explicit operator GVector(Vector3 vector)
+        public static explicit operator Vector(Vector3 vector)
         {
-            return new GVector(vector.X, vector.Y, vector.Z);
+            return new Vector(vector.X, vector.Y, vector.Z);
         }
 
-        public static explicit operator Vector4(GVector vector)
+        public static explicit operator Vector4(Vector vector)
         {
             var casted = vector.ToDimension(4);
             return new Vector4(casted[0], casted[1], casted[2], casted[3]);
         }
 
-        public static explicit operator GVector(Vector4 vector)
+        public static explicit operator Vector(Vector4 vector)
         {
-            return new GVector(vector.X, vector.Y, vector.Z, vector.W);
+            return new Vector(vector.X, vector.Y, vector.Z, vector.W);
         }
         #endregion
 
@@ -418,13 +417,13 @@ namespace GenericVector
 
         public override bool Equals(object obj)
         {
-            if (obj is GVector)
-                return Equals((GVector)obj);
+            if (obj is Vector)
+                return Equals((Vector)obj);
             else
                 return false;
         }
 
-        public bool Equals(GVector other)
+        public bool Equals(Vector other)
         {
             if (other == null || Dimensions != other.Dimensions)
                 return false;
@@ -438,29 +437,29 @@ namespace GenericVector
 
 
         #region Helper
-        public static GVector ForEachAxis(GVector vector, Func<float, float> operation)
+        public static Vector ForEachAxis(Vector vector, Func<float, float> operation)
         {
             return ForEachAxis(vector, (i, axis) => operation(axis));
         }
 
-        public static GVector ForEachAxis(GVector vector, Func<int, float, float> operation)
+        public static Vector ForEachAxis(Vector vector, Func<int, float, float> operation)
         {
-            var result = new GVector(vector);
+            var result = new Vector(vector);
             for (int i = 0; i < result.Dimensions; i++)
                 result[i] = operation(i, result[i]);
 
             return result;
         }
 
-        public static GVector ForEachAxis(GVector vectorA, GVector vectorB, Func<float, float, float> operation)
+        public static Vector ForEachAxis(Vector vectorA, Vector vectorB, Func<float, float, float> operation)
         {
             return ForEachAxis(vectorA, vectorB, (i, axisA, axisB) => operation(axisA, axisB));
         }
 
-        public static GVector ForEachAxis(GVector vectorA, GVector vectorB, Func<int, float, float, float> operation)
+        public static Vector ForEachAxis(Vector vectorA, Vector vectorB, Func<int, float, float, float> operation)
         {
             var minDimensions = Math.Min(vectorA.Dimensions, vectorB.Dimensions);
-            var result = new GVector(minDimensions);
+            var result = new Vector(minDimensions);
             for (int i = 0; i < minDimensions; i++)
                 result[i] = operation(i, vectorA[i], vectorB[i]);
 

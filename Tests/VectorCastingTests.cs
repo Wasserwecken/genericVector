@@ -6,25 +6,25 @@ using System.Numerics;
 namespace Tests
 {
     [TestFixture]
-    public class GVectorCastingTests
+    public class VectorCastingTests
     {
         [Test]
         public void ToDimension()
         {
-            GVector result;
-            GVector expected;
+            GenericVector.Vector result;
+            GenericVector.Vector expected;
 
 
             // to lower
-            result = new GVector(1f, 2f).ToDimension(1);
-            expected = new GVector(1f);
+            result = new GenericVector.Vector(1f, 2f).ToDimension(1);
+            expected = new GenericVector.Vector(1f);
 
             result.AssertAreEqual(expected);
 
 
             // to higher
-            result = new GVector(1f, 2f).ToDimension(3);
-            expected = new GVector(1f, 2f, 0f);
+            result = new GenericVector.Vector(1f, 2f).ToDimension(3);
+            expected = new GenericVector.Vector(1f, 2f, 0f);
 
             result.AssertAreEqual(expected);
         }
@@ -32,20 +32,20 @@ namespace Tests
         [Test]
         public void ToDimension_WithDefault()
         {
-            GVector result;
-            GVector expected;
+            GenericVector.Vector result;
+            GenericVector.Vector expected;
 
 
             // to lower
-            result = new GVector(1f, 2f).ToDimension(1, 3f);
-            expected = new GVector(1f);
+            result = new GenericVector.Vector(1f, 2f).ToDimension(1, 3f);
+            expected = new GenericVector.Vector(1f);
 
             result.AssertAreEqual(expected);
 
 
             // to higher
-            result = new GVector(1f, 2f).ToDimension(3, 3f);
-            expected = new GVector(1f, 2f, 3f);
+            result = new GenericVector.Vector(1f, 2f).ToDimension(3, 3f);
+            expected = new GenericVector.Vector(1f, 2f, 3f);
 
             result.AssertAreEqual(expected);
         }
@@ -53,27 +53,27 @@ namespace Tests
         [Test]
         public void Merge()
         {
-            GVector result;
-            GVector expected;
+            GenericVector.Vector result;
+            GenericVector.Vector expected;
 
 
             // empty
-            result = new GVector(1f, 2f).Merge(new float[] { });
-            expected = new GVector(1f, 2f);
+            result = new GenericVector.Vector(1f, 2f).Merge(new float[] { });
+            expected = new GenericVector.Vector(1f, 2f);
 
             result.AssertAreEqual(expected);
 
 
             // with lower
-            result = new GVector(1f, 2f).Merge(new GVector(1f));
-            expected = new GVector(1f, 2f);
+            result = new GenericVector.Vector(1f, 2f).Merge(new GenericVector.Vector(1f));
+            expected = new GenericVector.Vector(1f, 2f);
 
             result.AssertAreEqual(expected);
 
 
             // with higher
-            result = new GVector(1f, 2f).Merge(new GVector(1f, 2f, 3f));
-            expected = new GVector(1f, 2f, 3f);
+            result = new GenericVector.Vector(1f, 2f).Merge(new GenericVector.Vector(1f, 2f, 3f));
+            expected = new GenericVector.Vector(1f, 2f, 3f);
 
             result.AssertAreEqual(expected);
         }
@@ -82,20 +82,20 @@ namespace Tests
         [Test]
         public void AddDimensions()
         {
-            GVector result;
-            GVector expected;
+            GenericVector.Vector result;
+            GenericVector.Vector expected;
 
 
             // empty
-            result = new GVector(1f, 2f).AddDimensions(new float[] { });
-            expected = new GVector(1f, 2f);
+            result = new GenericVector.Vector(1f, 2f).AddDimensions(new float[] { });
+            expected = new GenericVector.Vector(1f, 2f);
 
             result.AssertAreEqual(expected);
 
 
             // new axes
-            result = new GVector(1f, 2f).AddDimensions(new GVector(3f, 4f));
-            expected = new GVector(1f, 2f, 3f, 4f);
+            result = new GenericVector.Vector(1f, 2f).AddDimensions(new GenericVector.Vector(3f, 4f));
+            expected = new GenericVector.Vector(1f, 2f, 3f, 4f);
 
             result.AssertAreEqual(expected);
         }
@@ -105,12 +105,12 @@ namespace Tests
         [Test]
         public void ToVector2()
         {
-            GVector source;
+            GenericVector.Vector source;
             Vector2 result;
 
 
             // fits
-            source = new GVector(1f, 2f);
+            source = new GenericVector.Vector(1f, 2f);
             result = (Vector2)source;
 
             Assert.AreEqual(result.X, source[0]);
@@ -118,7 +118,7 @@ namespace Tests
 
 
             // less
-            source = new GVector(1f);
+            source = new GenericVector.Vector(1f);
             result = (Vector2)source;
 
             Assert.AreEqual(result.X, source[0]);
@@ -126,7 +126,7 @@ namespace Tests
 
 
             // more
-            source = new GVector(1f, 2f, 3f);
+            source = new GenericVector.Vector(1f, 2f, 3f);
             result = (Vector2)source;
 
             Assert.AreEqual(result.X, source[0]);
@@ -136,11 +136,11 @@ namespace Tests
         [Test]
         public void ToVector3()
         {
-            GVector source;
+            GenericVector.Vector source;
             Vector3 result;
 
             // fits
-            source = new GVector(1f, 2f, 3f);
+            source = new GenericVector.Vector(1f, 2f, 3f);
             result = (Vector3)source;
 
             Assert.AreEqual(result.X, source[0]);
@@ -149,7 +149,7 @@ namespace Tests
 
 
             // less
-            source = new GVector(1f, 2f);
+            source = new GenericVector.Vector(1f, 2f);
             result = (Vector3)source;
 
             Assert.AreEqual(result.X, source[0]);
@@ -158,7 +158,7 @@ namespace Tests
 
 
             // more
-            source = new GVector(1f, 2f, 3f, 4f);
+            source = new GenericVector.Vector(1f, 2f, 3f, 4f);
             result = (Vector3)source;
 
             Assert.AreEqual(result.X, source[0]);
@@ -169,12 +169,12 @@ namespace Tests
         [Test]
         public void ToVector4()
         {
-            GVector source;
+            GenericVector.Vector source;
             Vector4 result;
 
             
             // fits
-            source = new GVector(1f, 2f, 3f, 4f);
+            source = new GenericVector.Vector(1f, 2f, 3f, 4f);
             result = (Vector4)source;
 
             Assert.AreEqual(result.X, source[0]);
@@ -184,7 +184,7 @@ namespace Tests
 
 
             // less
-            source = new GVector(1f, 2f, 3f);
+            source = new GenericVector.Vector(1f, 2f, 3f);
             result = (Vector4)source;
 
             Assert.AreEqual(result.X, source[0]);
@@ -194,7 +194,7 @@ namespace Tests
 
 
             // more
-            source = new GVector(1f, 2f, 3f, 4f, 5f);
+            source = new GenericVector.Vector(1f, 2f, 3f, 4f, 5f);
             result = (Vector4)source;
 
             Assert.AreEqual(result.X, source[0]);
@@ -208,7 +208,7 @@ namespace Tests
         public void FromVector2()
         {
             var source = new Vector2(1f, 2f);
-            var result = (GVector)source;
+            var result = (GenericVector.Vector)source;
 
             Assert.AreEqual(result.Dimensions, 2);
             Assert.AreEqual(result[0], source.X);
@@ -219,7 +219,7 @@ namespace Tests
         public void FromVector3()
         {
             var source = new Vector3(1f, 2f, 3f);
-            var result = (GVector)source;
+            var result = (GenericVector.Vector)source;
 
             Assert.AreEqual(result.Dimensions, 3);
             Assert.AreEqual(result[0], source.X);
@@ -231,7 +231,7 @@ namespace Tests
         public void FromVector4()
         {
             var source = new Vector4(1f, 2f, 3f, 4f);
-            var result = (GVector)source;
+            var result = (GenericVector.Vector)source;
 
             Assert.AreEqual(result.Dimensions, 4);
             Assert.AreEqual(result[0], source.X);
