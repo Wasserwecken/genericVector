@@ -234,7 +234,7 @@ namespace GenericVector
             => ForEachAxis(vector, value => Math.Max(value, max));
 
         public static Vector Max(Vector vector, Vector max)
-            => ForEachAxis(vector, (i, value) => Math.Min(value, max[i]));
+            => ForEachAxis(vector, (i, value) => Math.Max(value, max[i]));
 
         public static Vector Pow(Vector vector, Vector power)
             => ForEachAxis(vector, (i, value) => (float)Math.Pow(value, power[i]));
