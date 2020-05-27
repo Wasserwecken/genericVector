@@ -1,5 +1,5 @@
 # GenericVector
-Private case study about multidimensional vector arithmetic and how they interact on operations by dimensional diffrences.
+Case study about multidimensional vector arithmetic and how they interact on operations by dimensional diffrences.
 
 ## Features
 - Wraps most functions of the Math class, like Abs(), Sin(), Max(), etc.
@@ -134,7 +134,7 @@ resultFloat = Vector.Distance(vector2.ToDimension(3), vector3);
 // result: 7,483315
 
 
-// Merge recovers lost axes
+// Recover lost axes
 resultVector = Vector.Lerp(vector2, vector3, 0.5f).Merge(vector3);
 // result: (2, 3,5, 7)
 
