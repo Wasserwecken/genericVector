@@ -12,7 +12,7 @@ Private case study about multidimensional vector arithmetic and how they interac
 ### Not implemented
 - Rotational operations
 - Crossproduct (only available on the 3rd and 7th dimension)
-- System.Numerics like performance
+- Hardware acceleration
 
 ## Usage
 > **Important Note**  
