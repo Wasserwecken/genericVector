@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Numerics;
 using System.Globalization;
-using System.Runtime.CompilerServices;
-using System.Security;
 
 namespace GenericVector
 {
