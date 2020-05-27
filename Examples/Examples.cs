@@ -106,7 +106,7 @@ namespace Examples
 
 
             // AddDimensions recovers lost dimensions
-            resultVector = GenericVector.Vector.Lerp(vector2, vector3, 0.5f).IncludeDimensions(vector3);
+            resultVector = GenericVector.Vector.Lerp(vector2, vector3, 0.5f).Merge(vector3);
             Console.WriteLine(resultVector);
 
             // downcast to a lower dimension

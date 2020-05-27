@@ -7,83 +7,97 @@ namespace Tests
     [TestFixture]
     public class VectorInitialisationTests
     {
-        private Vector testVector3;
-
-        [SetUp]
-        public void Setup()
-        {
-            testVector3 = new Vector(3f, 5f, 7f);
-        }
-
         [Test]
-        [TestCase(-1)]
-        [TestCase(0)]
-        [TestCase(1)]
-        [TestCase(4096)]
-        public void InitByDimension(int value)
+        public void Init_WithDimension()
         {
-            if (value > 0)
-            {
-                Assert.AreEqual(value, new Vector(value).Dimensions);
-            }
-            else
-                Assert.Throws<ArgumentException>(() => new Vector(value));
+            // valid
+            var vector = new Vector(2);
+
+            Assert.AreEqual(vector.Dimensions, 2);
+            Assert.AreEqual(vector[0], 0f);
+            Assert.AreEqual(vector[1], 0f);
 
 
-
-
-            Assert.AreEqual(1, new Vector(1).Dimensions);
-            Assert.AreEqual(4096, new Vector(4096).Dimensions);
+            // invalid
             Assert.Throws<ArgumentException>(() => new Vector(0));
             Assert.Throws<ArgumentException>(() => new Vector(-1));
         }
 
-
         [Test]
-        [TestCase(new float[] { 1f })]
-        [TestCase(new float[] { 1f, 2f, 3f, 4f, 5f })]
-        public void InitByValues(params float[] values)
+        public void Init_WithDefault()
         {
-            var vector = new Vector(values);
+            // valid
+            var vector = new Vector(2, 1f);
 
-            Assert.AreEqual(values.Length, vector.Dimensions);
-            for (int i = 0; i < values.Length; i++)
-                Assert.AreEqual(values[i], vector[i]);
+            Assert.AreEqual(vector.Dimensions, 2);
+            Assert.AreEqual(vector[0], 1f);
+            Assert.AreEqual(vector[1], 1f);
+
+            // invalid
+            Assert.Throws<ArgumentException>(() => new Vector(0, 1f));
+            Assert.Throws<ArgumentException>(() => new Vector(-1, 1f));
         }
 
 
         [Test]
-        public void InitByVector()
+        public void Init_WithValues()
         {
-            var vector = new Vector(testVector3);
+            // valid
+            var vector = new Vector(1f, 2f);
 
-            Assert.AreEqual(vector.Dimensions, testVector3.Dimensions);
-            for (int i = 0; i < testVector3.Dimensions; i++)
-                Assert.AreEqual(vector[i], testVector3[i]);
+            Assert.AreEqual(vector.Dimensions, 2);
+            Assert.AreEqual(vector[0], 1f);
+            Assert.AreEqual(vector[1], 2f);
+
+
+            // invalid
+            Assert.Throws<ArgumentException>(() => new Vector(new float[] { }));
         }
 
 
         [Test]
-        [TestCase(3, 2f)]
-        public void InitByDefaultValue(int dimensions, float defautValue)
+        public void Init_WithVector()
         {
-            var vector = new Vector(dimensions, defautValue);
+            var source = new Vector(1f, 2f);
+            var vector = new Vector(source);
 
-            Assert.AreEqual(vector.Dimensions, dimensions);
-            for (int i = 0; i < vector.Dimensions; i++)
-                Assert.AreEqual(vector[i], defautValue);
+            Assert.AreEqual(vector.Dimensions, source.Dimensions);
+            Assert.AreEqual(vector[0], source[0]);
+            Assert.AreEqual(vector[1], source[1]);
         }
 
 
         [Test]
-        [TestCase(2)]
-        public void InitByDimensionandVector(int dimensions)
+        public void Init_WidthDimensionVector()
         {
-            var vector = new Vector(dimensions, testVector3);
+            Vector source;
+            Vector vector;
 
-            Assert.AreEqual(vector.Dimensions, dimensions);
-            for (int i = 0; i < vector.Dimensions; i++)
-                Assert.AreEqual(vector[i], testVector3[i]);
+            // fits
+            source = new Vector(1f, 2f);
+            vector = new Vector(2, source);
+
+            Assert.AreEqual(vector.Dimensions, source.Dimensions);
+            Assert.AreEqual(vector[0], source[0]);
+            Assert.AreEqual(vector[1], source[1]);
+
+
+            // less
+            source = new Vector(1f, 2f);
+            vector = new Vector(1, source);
+
+            Assert.AreEqual(vector.Dimensions, 1);
+            Assert.AreEqual(vector[0], source[0]);
+
+
+            // more
+            source = new Vector(1f, 2f);
+            vector = new Vector(3, source);
+
+            Assert.AreEqual(vector.Dimensions, 3);
+            Assert.AreEqual(vector[0], source[0]);
+            Assert.AreEqual(vector[1], source[1]);
+            Assert.AreEqual(vector[2], 0f);
         }
 
     }
