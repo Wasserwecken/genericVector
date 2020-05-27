@@ -8,11 +8,11 @@ namespace Tests
         public static void AssertAreEqual(this Vector result, Vector expected)
         {
             // check dimension
-            Assert.AreEqual(result.Dimensions, expected.Dimensions);
+            Assert.AreEqual(expected.Dimensions, result.Dimensions);
 
             // check each axis value
             for (int i = 0; i < result.Dimensions; i++)
-                Assert.AreEqual(result[i], expected[i]);
+                Assert.AreEqual(expected[i], result[i]);
         }
     }
 }

@@ -113,24 +113,24 @@ namespace Tests
             source = new GenericVector.Vector(1f, 2f);
             result = (Vector2)source;
 
-            Assert.AreEqual(result.X, source[0]);
-            Assert.AreEqual(result.Y, source[1]);
+            Assert.AreEqual(source[0], result.X);
+            Assert.AreEqual(source[1], result.Y);
 
 
             // less
             source = new GenericVector.Vector(1f);
             result = (Vector2)source;
 
-            Assert.AreEqual(result.X, source[0]);
-            Assert.AreEqual(result.Y, 0f);
+            Assert.AreEqual(source[0], result.X);
+            Assert.AreEqual(0f, result.Y);
 
 
             // more
             source = new GenericVector.Vector(1f, 2f, 3f);
             result = (Vector2)source;
 
-            Assert.AreEqual(result.X, source[0]);
-            Assert.AreEqual(result.Y, source[1]);
+            Assert.AreEqual(source[0], result.X);
+            Assert.AreEqual(source[1], result.Y);
         }
 
         [Test]
@@ -143,27 +143,27 @@ namespace Tests
             source = new GenericVector.Vector(1f, 2f, 3f);
             result = (Vector3)source;
 
-            Assert.AreEqual(result.X, source[0]);
-            Assert.AreEqual(result.Y, source[1]);
-            Assert.AreEqual(result.Z, source[2]);
+            Assert.AreEqual(source[0], result.X);
+            Assert.AreEqual(source[1], result.Y);
+            Assert.AreEqual(source[2], result.Z);
 
 
             // less
             source = new GenericVector.Vector(1f, 2f);
             result = (Vector3)source;
 
-            Assert.AreEqual(result.X, source[0]);
-            Assert.AreEqual(result.Y, source[1]);
-            Assert.AreEqual(result.Z, 0f);
+            Assert.AreEqual(source[0], result.X);
+            Assert.AreEqual(source[1], result.Y);
+            Assert.AreEqual(0f, result.Z);
 
 
             // more
             source = new GenericVector.Vector(1f, 2f, 3f, 4f);
             result = (Vector3)source;
 
-            Assert.AreEqual(result.X, source[0]);
-            Assert.AreEqual(result.Y, source[1]);
-            Assert.AreEqual(result.Z, source[2]);
+            Assert.AreEqual(source[0], result.X);
+            Assert.AreEqual(source[1], result.Y);
+            Assert.AreEqual(source[2], result.Z);
         }
 
         [Test]
@@ -177,30 +177,30 @@ namespace Tests
             source = new GenericVector.Vector(1f, 2f, 3f, 4f);
             result = (Vector4)source;
 
-            Assert.AreEqual(result.X, source[0]);
-            Assert.AreEqual(result.Y, source[1]);
-            Assert.AreEqual(result.Z, source[2]);
-            Assert.AreEqual(result.W, source[3]);
+            Assert.AreEqual(source[0], result.X);
+            Assert.AreEqual(source[1], result.Y);
+            Assert.AreEqual(source[2], result.Z);
+            Assert.AreEqual(source[3], result.W);
 
 
             // less
             source = new GenericVector.Vector(1f, 2f, 3f);
             result = (Vector4)source;
 
-            Assert.AreEqual(result.X, source[0]);
-            Assert.AreEqual(result.Y, source[1]);
-            Assert.AreEqual(result.Z, source[2]);
-            Assert.AreEqual(result.W, 0f);
+            Assert.AreEqual(source[0], result.X);
+            Assert.AreEqual(source[1], result.Y);
+            Assert.AreEqual(source[2], result.Z);
+            Assert.AreEqual(0f, result.W);
 
 
             // more
             source = new GenericVector.Vector(1f, 2f, 3f, 4f, 5f);
             result = (Vector4)source;
 
-            Assert.AreEqual(result.X, source[0]);
-            Assert.AreEqual(result.Y, source[1]);
-            Assert.AreEqual(result.Z, source[2]);
-            Assert.AreEqual(result.W, source[3]);
+            Assert.AreEqual(source[0], result.X);
+            Assert.AreEqual(source[1], result.Y);
+            Assert.AreEqual(source[2], result.Z);
+            Assert.AreEqual(source[3], result.W);
         }
 
 
@@ -211,8 +211,8 @@ namespace Tests
             var result = (GenericVector.Vector)source;
 
             Assert.AreEqual(result.Dimensions, 2);
-            Assert.AreEqual(result[0], source.X);
-            Assert.AreEqual(result[1], source.Y);
+            Assert.AreEqual(source.X, result[0]);
+            Assert.AreEqual(source.Y, result[1]);
         }
 
         [Test]
@@ -222,9 +222,9 @@ namespace Tests
             var result = (GenericVector.Vector)source;
 
             Assert.AreEqual(result.Dimensions, 3);
-            Assert.AreEqual(result[0], source.X);
-            Assert.AreEqual(result[1], source.Y);
-            Assert.AreEqual(result[2], source.Z);
+            Assert.AreEqual(source.X, result[0]);
+            Assert.AreEqual(source.Y, result[1]);
+            Assert.AreEqual(source.Z, result[2]);
         }
 
         [Test]
@@ -234,10 +234,10 @@ namespace Tests
             var result = (GenericVector.Vector)source;
 
             Assert.AreEqual(result.Dimensions, 4);
-            Assert.AreEqual(result[0], source.X);
-            Assert.AreEqual(result[1], source.Y);
-            Assert.AreEqual(result[2], source.Z);
-            Assert.AreEqual(result[3], source.W);
+            Assert.AreEqual(source.X, result[0]);
+            Assert.AreEqual(source.Y, result[1]);
+            Assert.AreEqual(source.Z, result[2]);
+            Assert.AreEqual(source.W, result[3]);
         }
     }
 }

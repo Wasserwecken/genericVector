@@ -14,8 +14,8 @@ namespace Tests
             var vector = new Vector(2);
 
             Assert.AreEqual(vector.Dimensions, 2);
-            Assert.AreEqual(vector[0], 0f);
-            Assert.AreEqual(vector[1], 0f);
+            Assert.AreEqual(0f, vector[0]);
+            Assert.AreEqual(0f, vector[1]);
 
 
             // invalid
@@ -30,8 +30,8 @@ namespace Tests
             var vector = new Vector(2, 1f);
 
             Assert.AreEqual(vector.Dimensions, 2);
-            Assert.AreEqual(vector[0], 1f);
-            Assert.AreEqual(vector[1], 1f);
+            Assert.AreEqual(1f, vector[0]);
+            Assert.AreEqual(1f, vector[1]);
 
             // invalid
             Assert.Throws<ArgumentException>(() => new Vector(0, 1f));
@@ -46,8 +46,8 @@ namespace Tests
             var vector = new Vector(1f, 2f);
 
             Assert.AreEqual(vector.Dimensions, 2);
-            Assert.AreEqual(vector[0], 1f);
-            Assert.AreEqual(vector[1], 2f);
+            Assert.AreEqual(1f, vector[0]);
+            Assert.AreEqual(2f, vector[1]);
 
 
             // invalid
@@ -62,8 +62,8 @@ namespace Tests
             var vector = new Vector(source);
 
             Assert.AreEqual(vector.Dimensions, source.Dimensions);
-            Assert.AreEqual(vector[0], source[0]);
-            Assert.AreEqual(vector[1], source[1]);
+            Assert.AreEqual(source[0], vector[0]);
+            Assert.AreEqual(source[1], vector[1]);
         }
 
 
@@ -78,8 +78,8 @@ namespace Tests
             vector = new Vector(2, source);
 
             Assert.AreEqual(vector.Dimensions, source.Dimensions);
-            Assert.AreEqual(vector[0], source[0]);
-            Assert.AreEqual(vector[1], source[1]);
+            Assert.AreEqual(source[0], vector[0]);
+            Assert.AreEqual(source[1], vector[1]);
 
 
             // less
@@ -87,7 +87,7 @@ namespace Tests
             vector = new Vector(1, source);
 
             Assert.AreEqual(vector.Dimensions, 1);
-            Assert.AreEqual(vector[0], source[0]);
+            Assert.AreEqual(source[0], vector[0]);
 
 
             // more
@@ -95,9 +95,9 @@ namespace Tests
             vector = new Vector(3, source);
 
             Assert.AreEqual(vector.Dimensions, 3);
-            Assert.AreEqual(vector[0], source[0]);
-            Assert.AreEqual(vector[1], source[1]);
-            Assert.AreEqual(vector[2], 0f);
+            Assert.AreEqual(source[0], vector[0]);
+            Assert.AreEqual(source[1], vector[1]);
+            Assert.AreEqual(0f, vector[2]);
         }
 
     }
