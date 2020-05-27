@@ -34,7 +34,7 @@ var vector3 = new Vector(3, 2f);
 // result: (2, 2, 2)
 ```
 
-### Access & assign axes
+### Access & assign
 Indizes for the axes starting with 0.
 
 ```c#
@@ -75,7 +75,7 @@ var resultC = vector2 % vector3;
 ```
 
 
-### Float math usage
+### Float math
 Many methods of `System.Math` are wraped. By using them, all axes are treaded seperatly. Each result is stored as axis of a new vector.
 
 ```c#
