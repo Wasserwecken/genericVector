@@ -12,13 +12,14 @@ namespace GenericVector
         #region Properties
         public int Dimensions => Axes.Length;
         public float[] Axes { get; }
+
         public Vector Normalized => this / Magnitude;
         public float Magnitude => (float)Math.Sqrt(MagnitudeSquared);
         public float MagnitudeSquared
         {
             get
             {
-                var length = Axes[0];
+                var length = Axes[0] * Axes[0];
                 for (int i = 1; i < Dimensions; i++)
                     length += Axes[i] * Axes[i];
 
@@ -288,6 +289,9 @@ namespace GenericVector
         public static float DistanceSquared(Vector vectorA, Vector vectorB)
             => (vectorA - vectorB).MagnitudeSquared;
 
+        public static float DistanceManhattan(Vector vectorA, Vector vectorB)
+            => (vectorA - vectorB).MagnitudeManhattan;
+
         public static Vector Lerp(Vector vectorA, Vector vectorB, Vector t)
         {
             var minDimensions = Math.Min(t.Dimensions, Math.Min(vectorA.Dimensions, vectorB.Dimensions));
@@ -314,18 +318,27 @@ namespace GenericVector
             return result;
         }
 
-        public Vector MoveTowards(Vector target, float delta)
+        public static Vector MoveTowards(Vector origin, Vector target, float delta)
         {
-            var diff = -this + target;
+            var diff = -origin + target;
             float magnitude = diff.Magnitude;
             if (magnitude <= delta || delta == 0)
                 return new Vector(target);
-            return this + diff / magnitude * delta;
+            return origin + diff / magnitude * delta;
         }
         #endregion
 
 
         #region ToString
+        public string ToString(Func<float, string> converter)
+        {
+            var values = new string[Axes.Length];
+            for (int i = 0; i < Axes.Length; i++)
+                values[i] = converter(Axes[i]);
+
+            return $"({string.Join(", ", values)})";
+        }
+
         public override string ToString()
         {
             return ToString(value => value.ToString(CultureInfo.InvariantCulture));
@@ -485,15 +498,6 @@ namespace GenericVector
                 result[i] = operation(i, vectorA[i], vectorB[i]);
 
             return result;
-        }
-
-        public string ToString(Func<float, string> converter)
-        {
-            var values = new string[Axes.Length];
-            for (int i = 0; i < Axes.Length; i++)
-                values[i] = converter(Axes[i]);
-
-            return $"({string.Join(", ", values)})";
         }
         #endregion
     }
