@@ -6,6 +6,7 @@ using System.Security;
 
 namespace GenericVector
 {
+    // TODO rename to Vector
     [Serializable]
     public struct GVector : IFormattable, IEquatable<GVector>
     {
@@ -343,23 +344,33 @@ namespace GenericVector
             return result;
         }
 
-        public GVector AddDimensions(GVector vector)
+        public GVector Merge(GVector vector)
         {
-            if (Dimensions >= vector.Dimensions)
+            return Merge(vector.Axes);
+        }
+
+        public GVector Merge(params float[] axes)
+        {
+            if (axes.Length <= Dimensions)
                 return new GVector(this);
 
-            var result = new GVector(vector.Dimensions, this);
-            for (int i = Dimensions; i < vector.Dimensions; i++)
-                result[i] = vector[i];
+            var result = new GVector(axes.Length, this);
+            for (int i = Dimensions; i < axes.Length; i++)
+                result[i] = axes[i];
 
             return result;
+        }
+
+        public GVector AddDimensions(GVector vector)
+        {
+            return AddDimensions(vector.Axes);
         }
 
         public GVector AddDimensions(params float[] values)
         {
             var result = new GVector(Dimensions + values.Length, this);
             for (int i = Dimensions; i < result.Dimensions; i++)
-                result[i] = values[i];
+                result[i] = values[i - Dimensions];
 
             return result;
         }
