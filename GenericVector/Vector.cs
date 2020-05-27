@@ -12,8 +12,6 @@ namespace GenericVector
         #region Properties
         public int Dimensions => Axes.Length;
         public float[] Axes { get; }
-        public Vector One => new Vector(Dimensions, 1f);
-        public Vector Zero => new Vector(Dimensions, 0f);
         public Vector Normalized => this / Magnitude;
         public float Magnitude => (float)Math.Sqrt(MagnitudeSquared);
         public float MagnitudeSquared
