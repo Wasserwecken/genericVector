@@ -122,5 +122,11 @@ namespace Tests
             Assert.AreEqual(1f, vector[0]);
             Assert.AreEqual(1f, vector[1]);
         }
+
+        [Test]
+        public void MinDimension()
+        {
+            Assert.AreEqual(2, Vector.MinDimension(new Vector(2), new Vector(16), new Vector(5)));
+        }
     }
 }
