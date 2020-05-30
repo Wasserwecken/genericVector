@@ -2,8 +2,6 @@
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Tests
 {
